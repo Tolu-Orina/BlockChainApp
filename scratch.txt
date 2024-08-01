@@ -1,17 +1,3 @@
-Email: toluorina@gmail.com
-Contact: 07823890865
-Num. of tenants: 1
-Working details: Working, Student
-Annual Income: £24000
-Occupation: Cloud Engineer
-Pets: None
-Tenancy duration: It depends on the Landlord
-Move in date: 23rd August, 2024
-Rented before: Yes, Tynant Student Accomodation SA1 1AD
-Could you provide guarantor: Yes
-Adverse Credit History: NIL
-
-
 # Install truffle
 npm install -g truffle
 
@@ -51,3 +37,4 @@ or the task count: taskCount = await todoList.taskCount(); taskCount.toNumber()
 git remote add origin https://github.com/Tolu-Orina/BlockChainApp.git
 git branch -M main
 git push -u origin main
+
