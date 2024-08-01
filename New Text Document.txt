@@ -47,3 +47,7 @@ todoList = await TodoList.deployed()
 To get the address: todoList.address
 or the task count: taskCount = await todoList.taskCount(); taskCount.toNumber()
 
+# Push existing repository to GitHub
+git remote add origin https://github.com/Tolu-Orina/BlockChainApp.git
+git branch -M main
+git push -u origin main
