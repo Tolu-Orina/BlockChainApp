@@ -8,8 +8,7 @@ resource "aws_amplify_app" "block_app" {
 
   build_spec = file("${path.root}/../amplify.yml")
 
-  # GitHub personal access token
-  access_token = "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"
+  
 
   # Auto Branch
   enable_auto_branch_creation   = true
