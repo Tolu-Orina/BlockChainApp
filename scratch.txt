@@ -1,0 +1,42 @@
+# Install truffle
+npm install -g truffle
+
+
+# Metamask Secret Phrase
+slender layer until square fiber blue rose reject junior quick mouse enroll
+
+# Check version
+truffle version
+
+# Initialize Project 
+truffle init
+
+# Install Dependencies
+npm install bootstrap chai chai-as-promised chai-bignumber lite-server nodemon truffle-contract web3
+
+
+# Compile Smart Contract
+truffle compiile
+
+
+Update truffle-config.js to connect to the blockchain
+
+# Run Smart Contract
+truffle migrate
+
+# Open Truffle Console
+truffle console
+
+then enter:
+todoList = await TodoList.deployed()
+
+To get the address: todoList.address
+or the task count: taskCount = await todoList.taskCount(); taskCount.toNumber()
+
+# Push existing repository to GitHub
+git remote add origin https://github.com/Tolu-Orina/BlockChainApp.git
+git branch -M main
+git push -u origin main
+
+
+git hub token - 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

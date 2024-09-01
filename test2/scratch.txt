@@ -1,0 +1,4 @@
+git stash -u
+git checkout main
+
+git stash apply
