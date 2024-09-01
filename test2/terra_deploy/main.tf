@@ -8,8 +8,6 @@ resource "aws_amplify_app" "block_app" {
 
   build_spec = file("${path.root}/../amplify.yml")
 
-  
-
   # Auto Branch
   enable_auto_branch_creation   = true
   enable_branch_auto_deletion   = true
