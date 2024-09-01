@@ -89,3 +89,14 @@ resource "aws_amplify_branch" "main_prod" {
   stage     = "PRODUCTION"
 
 }
+
+resource "aws_amplify_domain_association" "medivault" {
+  app_id      = aws_amplify_app.block_app.id
+  domain_name = "conquerorfoundation.com"
+
+  # https://medivault.xxxx.com
+  sub_domain {
+    branch_name = aws_amplify_branch.main_prod.branch_name
+    prefix      = "medivault"
+  }
+}
