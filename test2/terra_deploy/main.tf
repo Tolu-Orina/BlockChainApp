@@ -2,6 +2,58 @@ provider "aws" {
   region = "us-east-1" # Change to your desired region
 }
 
+# AMPLIFY SERVICE ROLE
+resource "aws_iam_role" "amplify_role" {
+    name = "amplify_service_role"
+    assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "amplify.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "cloudwatch_logs_policy" {
+  name        = "CloudWatchLogsPolicy"
+  description = "Policy for managing CloudWatch Logs resources"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "logs:CreateLogStream",
+          "logs:CreateLogGroup",
+          "logs:DescribeLogGroups",
+          "logs:PutLogEvents"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+
+resource "aws_iam_role_policy_attachment" "amplify_codecommit_attachment" {
+  role       = aws_iam_role.amplify_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitFullAccess"
+}
+
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_logs_policy_attachment" {
+  role       = aws_iam_role.amplify_role.name
+  policy_arn = aws_iam_policy.cloudwatch_logs_policy.arn
+}
+
 resource "aws_amplify_app" "block_app" {
   name       = "block_app"
   repository = "https://github.com/Tolu-Orina/BlockChainApp"
@@ -12,6 +64,11 @@ resource "aws_amplify_app" "block_app" {
   enable_auto_branch_creation   = true
   enable_branch_auto_deletion   = true
   
+  # GitHub personal access token
+  # access_token = "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"
+
+  iam_service_role_arn =  aws_iam_role.amplify_role.arn
+
   platform = "WEB_COMPUTE" # Important for Next.js application
   
   environment_variables = {
