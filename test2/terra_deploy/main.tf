@@ -65,7 +65,7 @@ resource "aws_amplify_app" "block_app" {
   enable_branch_auto_deletion   = true
   
   # GitHub personal access token
-  # access_token = "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"
+  # access_token = "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"
 
   iam_service_role_arn =  aws_iam_role.amplify_role.arn
 
