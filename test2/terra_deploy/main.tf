@@ -65,7 +65,7 @@ resource "aws_amplify_app" "block_app" {
   enable_branch_auto_deletion   = true
   
   # GitHub personal access token
-  # access_token = "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"
+  access_token = "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"
 
   iam_service_role_arn =  aws_iam_role.amplify_role.arn
 
@@ -75,6 +75,7 @@ resource "aws_amplify_app" "block_app" {
     NEXT_PUBLIC_USER_POOL_ID="us-east-1_eH3KhD7Is"
     NEXT_PUBLIC_USER_POOL_CLIENT_ID="7n0seqfh9e2e97mrp14b4dcknm"
     NEXT_PUBLIC_REGION="us-east-1"
+    AMPLIFY_MONOREPO_APP_ROOT = "test2"
   }
 }
 
