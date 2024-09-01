@@ -33,7 +33,7 @@ const WithAuth = (Component: React.ComponentType) => {
     }
 
     if (!authenticated) {
-      return null; // Or a redirect to login
+      router.push('/login'); // Or a redirect to login
     }
 
     return <Component {...props} />;
