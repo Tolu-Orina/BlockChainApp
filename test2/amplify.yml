@@ -1,6 +1,6 @@
 version: 1
 applications:
-  - appRoot: web-content
+  - appRoot: test2
     frontend:
       buildPath: test2
       phases:
