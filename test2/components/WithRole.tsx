@@ -12,7 +12,7 @@ import {ampConfig} from '../aws-amp-config';
 Amplify.configure(ampConfig);
 
 const WithRole = (allowedRole: string, Component: React.ComponentType) => {
-  return (props: any) => {
+  const AuthenticatedComponent = (props: any) => {
     const [authorized, setAuthorized] = useState(false);
     const router = useRouter();
 
@@ -41,6 +41,12 @@ const WithRole = (allowedRole: string, Component: React.ComponentType) => {
 
     return <Component {...props} />;
   };
+
+  // Set the display name for easier debugging
+  AuthenticatedComponent.displayName = `WithAuth(${Component.displayName || Component.name || 'Component'})`;
+
+  return AuthenticatedComponent;
+  
 };
 
 export default WithRole;
