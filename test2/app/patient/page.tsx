@@ -3,9 +3,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import WithAuth from '@/components/WithAuth';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WithRole from '@/components/WithRole';
 
 const PatientDashboard: React.FC = () => {
   return (
@@ -28,4 +28,4 @@ const PatientDashboard: React.FC = () => {
   );
 };
 
-export default WithAuth(PatientDashboard);
+export default WithRole('patient', PatientDashboard);

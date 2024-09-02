@@ -1,35 +1,46 @@
-// // hoc/withRole.tsx
-// 'use client';
+// hoc/withRole.tsx
+'use client';
 
-// import React, { useEffect, useState } from 'react';
-// import { currentAuthenticatedUser } from './authUtils';
-// import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { handleFetchUserAttributes } from './authUtils';
+import { useRouter } from 'next/navigation';
 
-// const WithRole = (role: string, Component: React.ComponentType) => {
-//   return (props: any) => {
-//     const [authorized, setAuthorized] = useState(false);
-//     const router = useRouter();
+import { Amplify } from 'aws-amplify';
+import {ampConfig} from '../aws-amp-config';
 
-//     useEffect(() => {
-//       currentAuthenticatedUser()
-//         .then(currentUserOutput => {
-//           const { username, userId, signInDetails } = currentUserOutput;
-//           console.log(username, userId, signInDetails)
 
-//           // const userGroups = user.signInUserSession.accessToken.payload['cognito:groups'] || [];
-//           // if (userGroups.includes(role)) {
-//           //   setAuthorized(true);
-//           // } else {
-//           //   router.push('/unauthorized');
-//           // }
-//         })
-//         .catch(() => router.push('/login'));
-//     }, [router, role]);
+Amplify.configure(ampConfig);
 
-//     if (!authorized) return null;
+const WithRole = (allowedRole: string, Component: React.ComponentType) => {
+  return (props: any) => {
+    const [authorized, setAuthorized] = useState(false);
+    const router = useRouter();
 
-//     return <Component {...props} />;
-//   };
-// };
+    useEffect(() => {
+      const fetchUserAttributes = async () => {
+        try {
+          const currentUserAttributes: any = await handleFetchUserAttributes();
+          const userGroup = currentUserAttributes['custom:group'];
+          console.log('User Group:', userGroup);
 
-// export default WithRole;
+          // Check if the user belongs to the allowed group
+          if (userGroup === allowedRole) {
+            setAuthorized(true);
+          } else {
+            router.push('/unauthorized'); // Redirect to an unauthorized page
+          }
+        } catch (error) {
+          router.push('/login'); // Redirect to login if there's an error (e.g., not authenticated)
+        }
+      };
+
+      fetchUserAttributes();
+    }, [router, allowedRole]);
+
+    if (!authorized) return null;
+
+    return <Component {...props} />;
+  };
+};
+
+export default WithRole;

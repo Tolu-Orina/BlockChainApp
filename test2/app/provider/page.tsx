@@ -5,6 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import WithRole from '@/components/WithRole';
 
 const ProviderDashboard: React.FC = () => {
   return (
@@ -26,4 +27,4 @@ const ProviderDashboard: React.FC = () => {
   );
 };
 
-export default ProviderDashboard;
+export default WithRole('provider', ProviderDashboard);

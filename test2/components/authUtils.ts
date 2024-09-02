@@ -1,4 +1,5 @@
-import { signUp, confirmSignUp, autoSignIn, signIn, signOut, fetchAuthSession,
+import { signUp, confirmSignUp, autoSignIn, signIn, 
+      signOut, fetchAuthSession, fetchUserAttributes,
       getCurrentUser, type SignInInput, type ConfirmSignUpInput } from 'aws-amplify/auth';
 
 
@@ -8,13 +9,15 @@ export type SignUpParameters = {
   username: string;
   password: string;
   email: string;
+  group: string;
 };
 
 // Function to handle user sign-up
 export async function handleSignUp({
   username,
   password,
-  email
+  email,
+  group
 }: SignUpParameters) {
   try {
     const signUpResult = await signUp({
@@ -22,7 +25,8 @@ export async function handleSignUp({
       password,
       options: {
         userAttributes: {
-          email
+          email,
+          "custom:group": group
         },
         // optional
         autoSignIn: true // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
@@ -91,12 +95,21 @@ export async function currentAuthenticatedUser() {
   }
 }
 
-async function currentSession() {
+export async function currentSession() {
   try {
     const { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
 
     return accessToken
   } catch (err) {
     console.log(err);
+  }
+}
+
+export async function handleFetchUserAttributes() {
+  try {
+    const userAttributes = await fetchUserAttributes();
+    return userAttributes;
+  } catch (error) {
+    console.log(error);
   }
 }

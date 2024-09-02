@@ -97,6 +97,6 @@ resource "aws_amplify_domain_association" "medivault" {
   # https://medivault.xxxx.com
   sub_domain {
     branch_name = aws_amplify_branch.main_prod.branch_name
-    prefix      = "medivault"
+    prefix      = "rxvault"
   }
 }

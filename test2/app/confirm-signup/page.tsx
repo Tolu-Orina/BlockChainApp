@@ -40,9 +40,9 @@ const ConfirmSignupPage: React.FC = () => {
         className="space-y-4 bg-white shadow-md rounded-lg p-4"
       >
         <div>
-          <label className="block text-sm font-medium">Username</label>
+          <label className="block text-sm font-medium">Email</label>
           <input
-            type="text"
+            type="email"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             value={username}
             onChange={(e) => setUsername(e.target.value)}

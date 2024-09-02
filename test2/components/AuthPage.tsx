@@ -15,6 +15,7 @@ const AuthPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [group, setGroup] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
 
@@ -31,7 +32,8 @@ const AuthPage: React.FC = () => {
       await handleSignUp({
         username,
         password,
-        email
+        email,
+        group
       });
       router.push('/confirm-signup'); // Redirect to confirmation page
       setError('');
@@ -46,7 +48,7 @@ const AuthPage: React.FC = () => {
     e.preventDefault();
     try {
       await handleSignIn({username, password});
-      router.push('/');
+      router.push('/patient');
     } catch (err) {
       setError('Login failed. Please check your credentials.');
       console.error(err);
@@ -81,6 +83,7 @@ const AuthPage: React.FC = () => {
           />
         </div>
         {isSignup && (
+          <>
           <div>
             <label className="block text-sm font-medium">Re-enter Password</label>
             <input
@@ -90,6 +93,19 @@ const AuthPage: React.FC = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+          <div>
+            <label className="block text-sm font-medium">Health user type</label>
+            <select
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+              value={group}
+              onChange={(e) => setGroup(e.target.value)}
+            >
+              <option value="">Select user type</option>
+              <option value="patient">Patient</option>
+              <option value="provider">Provider</option>
+            </select>
+          </div>
+        </>
         )}
         <button
           type="submit"

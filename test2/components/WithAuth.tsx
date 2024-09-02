@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { currentAuthenticatedUser } from './authUtils';
+import { currentAuthenticatedUser, handleFetchUserAttributes } from './authUtils';
 
 import { Amplify } from 'aws-amplify';
 import {ampConfig} from '../aws-amp-config';
@@ -19,6 +19,11 @@ const WithAuth = (Component: React.ComponentType) => {
       const checkAuthentication = async () => {
         try {
           const user = await currentAuthenticatedUser();
+          console.log('Authenticated user:', user);
+
+          const userAttributes = await handleFetchUserAttributes();
+          console.log('User attributes:', userAttributes);
+
           setAuthenticated(!!user);
         } catch {
           setAuthenticated(false);
